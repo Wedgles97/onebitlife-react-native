@@ -6,13 +6,16 @@ import {
   ScrollView, 
   StyleSheet
 } from "react-native";
-import DefaultButton from "../../Components/Common/DefaultButton";
+import { useNavigation } from "@react-navigation/native";
 
+import DefaultButton from "../../Components/Common/DefaultButton";
 import LifeStatus from "../../Components/Common/LifeStatus";
 
 export default function Start() {
+  const navigation = useNavigation();
+
   const handleNavAppExplanation = () => {
-    console.log("Testando o clique");
+    navigation.navigate("AppExplanation");
   };
 
   return (
