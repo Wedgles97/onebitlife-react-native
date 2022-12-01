@@ -3,13 +3,16 @@ import {
   Image,
   ScrollView,
   StyleSheet,
+  Text,
   TouchableOpacity,
   View
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-export default function HabitPage() {
+export default function HabitPage({ route }) {
   const navigation = useNavigation();
+  const { create, habit } = route.params;
+ 
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -23,7 +26,12 @@ export default function HabitPage() {
               source={require("../../assets/icons/arrowBack.png")}
             />
           </TouchableOpacity>
-          <View styles={styles.mainContent}>
+          <View style={styles.mainContent}>
+            <Text style={styles.title}>Configurações {"\n"} de hábito</Text>
+            <Text style={styles.inputText}>Área</Text>
+            <View style={styles.inputContainer}>
+              <Text style={styles.area}>{habit?.habitArea}</Text>
+            </View>
           </View>
         </View>
       </ScrollView>
@@ -34,7 +42,7 @@ export default function HabitPage() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "rgba(21 , 21, 21, 0.98)",
+    backgroundColor: "rgba(21, 21, 21, 0.98)",
   },
   backPageBtn: {
     width: 40,
@@ -48,5 +56,29 @@ const styles = StyleSheet.create({
   mainContent: {
     width: 250,
     alignSelf: "center",
+  },
+  title: {
+    fontWeight: "bold",
+    textAlign: "center",
+    color: "#ffffff",
+    fontSize: 30,
+  },
+  inputText: {
+    color: "#ffffff",
+    fontSize: 16,
+    marginTop: 35,
+    marginBottom: 10,
+    marginLeft: 5,
+  },
+  inputContainer: {
+    borderWidth: 1,
+    borderColor: "#ffffff",
+    borderRadius: 10,
+    paddingHorizontal: 20,
+    paddingVertical: 15,
+  },
+  area: {
+    color: "#bbbbbb",
+    fontSize: 15,
   },
 });
