@@ -16,8 +16,8 @@ const setShowHome = (obj) => {
       tx.executeSql(
         "INSERT INTO change_navigation (showHome, appStartData) values (?, ?);",
         [obj.showHome, obj.appStartData],
-        (_, { rowAffected, insertId }) => {
-          if (rowAffected > 0) {
+        (_, { rowsAffected, insertId }) => {
+          if (rowsAffected > 0) {
             resolve(insertId);
           }
         },
@@ -30,5 +30,5 @@ const setShowHome = (obj) => {
 };
 
 export default {
-  setShowHome,
+  setShowHome
 };
