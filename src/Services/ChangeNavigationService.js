@@ -30,7 +30,7 @@ const setShowHome = (obj) => {
 };
 
 const checkShowHome = (id) => {
-  return new promises((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     db.transaction((tx) => {
       tx.executeSql(
         "SELECT * FROM change_navigation where id=?;",
