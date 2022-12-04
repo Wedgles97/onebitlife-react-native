@@ -24,11 +24,14 @@ export default function Home({ route }) {
   const [robotDaysLife, setRobotDaysLife] = useState();
   const today = new Date();
 
+  const excludeArea = route.params?.excludeArea;
+
   function handleNavExplanation() {
     navigation.navigate("AppExplanation");
   }
 
   useEffect(() => {
+    // update habit
     HabitsService.findByArea("Mente").then((mind) => {
       setMindHabit(mind[0]);
     });
@@ -41,6 +44,22 @@ export default function Home({ route }) {
     HabitsService.findByArea("Humor").then((fun) => {
       setFunHabit(fun[0]);
     });
+
+    // delete habit
+    if (excludeArea) {
+      if (excludeArea == "Mente") {
+        setMindHabit(null);
+      }
+      if (excludeArea == "Financeiro") {
+        setMoneyHabit(null);
+      }
+      if (excludeArea == "Corpo") {
+        setBodyHabit(null);
+      }
+      if (excludeArea == "Humor") {
+        setFunHabit(null);
+      }
+    }
     
     ChangeNavigationService.checkShowHome(1)
       .then((showHome) => {

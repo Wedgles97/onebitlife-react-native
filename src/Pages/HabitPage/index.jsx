@@ -14,7 +14,7 @@ import SelectHabit from "../../Components/HabitPage/SelectHabit";
 import SelectFrequency from "../../Components/HabitPage/SelectFrequency";
 import Notification from "../../Components/HabitPage/Notification";
 import TimeDatePicker from "../../Components/HabitPage/TimeDatePicker";
-import UpdateExcludeButton from "../../Components/HabitPage/UpdateExcludeButton";
+import UpdateExcludeButtons from "../../Components/HabitPage/UpdateExcludeButtons";
 import DefaultButton from "../../Components/Common/DefaultButton";
 import HabitsService from "../../Services/HabitsService";
 
@@ -156,7 +156,7 @@ export default function HabitPage({ route }) {
             ) : null }
 
             {create === false ? (
-              <UpdateExcludeButton 
+              <UpdateExcludeButtons 
                 handleUpdate={handleUpdateHabit}
                 habitArea={habit?.habitArea}
                 habitInput={habitInput}
