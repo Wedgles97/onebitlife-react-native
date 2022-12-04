@@ -13,7 +13,7 @@ import { useNavigation } from "@react-navigation/native";
 import SelectHabit from "../../Components/HabitPage/SelectHabit";
 import SelectFrequency from "../../Components/HabitPage/SelectFrequency";
 import Notification from "../../Components/HabitPage/Notification";
-import TimeDataPicker from "../../Components/HabitPage/TimeDataPicker";
+import TimeDatePicker from "../../Components/HabitPage/TimeDatePicker";
 import UpdateExcludeButton from "../../Components/HabitPage/UpdateExcludeButton";
 import DefaultButton from "../../Components/Common/DefaultButton";
 import HabitsService from "../../Services/HabitsService";
@@ -75,24 +75,37 @@ export default function HabitPage({ route }) {
           createdHabit: `Created in ${habit?.habitArea}`,
         });
       });
-      navigation.navigate("Home", {
-        createdHabit: `Created in ${habit?.habitArea}`,
-      });
     }
-    function handleUpdateHabit() {
-      if (
-        notificationToggle === true &&
-        !dayNotification && 
-        !timeNotification
-      ) {
-        Alert.alert(
-          "Você precisa colocar a frequência e horário da notificação!"
-        );
-      } else {
+  }
+
+  function handleUpdateHabit() {
+    if (
+      notificationToggle === true &&
+      !dayNotification && 
+      !timeNotification
+    ) {
+      Alert.alert(
+        "Você precisa colocar a frequência e horário da notificação!"
+      );
+    } else {
+      HabitsService.updateHabit({
+        habitArea: habit?.habitArea,
+        habitName: habitInput,
+        habitFrequency: frequencyInput,
+        habitHasNotification: notificationToggle,
+        habitNotificationFrequency: dayNotification,
+        habitNotificationTime: timeNotification,
+        habitNotificationId: notificationToggle ? habitInput : null,
+      }).then(() => {
+        Alert.alert("Sucesso na atualização do hábito");
+        if (!notificationToggle) {
+        } else {
+    
+        }
         navigation.navigate("Home", {
-          updateHabit: `Update in ${habit?.habitArea}`,
+          updatedHabit: `Updated in ${habit?.habitArea}`,
         });
-      }
+      });
     }
   }
 
@@ -132,7 +145,7 @@ export default function HabitPage({ route }) {
 
             {notificationToggle ? (
               frequencyInput === "Mensal" ? null : (
-                <TimeDataPicker 
+                <TimeDatePicker 
                   frequency={frequencyInput}
                   dayNotification={dayNotification}
                   timeNotification={timeNotification}
@@ -145,11 +158,11 @@ export default function HabitPage({ route }) {
             {create === false ? (
               <UpdateExcludeButton 
                 handleUpdate={handleUpdateHabit}
-                habitArea={habitArea}
+                habitArea={habit?.habitArea}
                 habitInput={habitInput}
               />
             ) : (
-              <View styles={styles.configButton}> 
+              <View style={styles.configButton}> 
                 <DefaultButton 
                   buttonText={"Criar"}
                   handlePress={handleCreateHabit}
@@ -182,6 +195,9 @@ const styles = StyleSheet.create({
   mainContent: {
     width: 250,
     alignSelf: "center",
+  },
+  configButton: {
+    alignItems: "center",
   },
   title: {
     fontWeight: "bold",

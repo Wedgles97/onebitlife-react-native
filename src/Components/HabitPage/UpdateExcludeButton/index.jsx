@@ -69,7 +69,7 @@ export default function UpdateExcludeButton ({
         }}
       >
         <Image 
-          styles={styles.trashIcon}
+          style={styles.trashIcon}
           source={require("../../../assets/icons/trash.png")}
         />
       </TouchableOpacity>
