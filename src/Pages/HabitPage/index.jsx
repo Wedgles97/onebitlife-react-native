@@ -20,6 +20,7 @@ import DefaultButton from "../../Components/Common/DefaultButton";
 import HabitsService from "../../Services/HabitsService";
 import NotificationService from "../../Services/NotificationService";
 
+
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
@@ -94,7 +95,6 @@ export default function HabitPage({ route }) {
         progressBar: 1,
       }).then(() => {
         Alert.alert("Sucesso na criação do hábito!");
-
         navigation.navigate("Home", {
           createdHabit: `Created in ${habit?.habitArea}`,
         });
@@ -122,9 +122,17 @@ export default function HabitPage({ route }) {
         habitNotificationId: notificationToggle ? habitInput : null,
       }).then(() => {
         Alert.alert("Sucesso na atualização do hábito");
+        // Delete habit and notification together or just notification
         if (!notificationToggle) {
+          NotificationService.deleteNotification(habit?.habitName);
         } else {
-    
+          NotificationService.deleteNotification(habit?.habitName);
+          Notification.createNotification(
+            habitInput,
+            frequencyInput,
+            dayNotification,
+            timeNotification
+          );
         }
         navigation.navigate("Home", {
           updatedHabit: `Updated in ${habit?.habitArea}`,
