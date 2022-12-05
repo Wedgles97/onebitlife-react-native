@@ -41,9 +41,11 @@ export default function HabitPage({ route }) {
 
   // Date Check
   const habitCreated = new Date();
-  const formatDate = `${habitCreated.getFullYear()}-${habitCreated.getMonth() + 1}-${habitCreated.getDate()}`;
-
-  // Notification
+  const formatDate = `${habitCreated.getFullYear()}-${
+    habitCreated.getMonth() + 1
+  }-${habitCreated.getDate()}`;
+  
+  // Notification Creation
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();
@@ -123,17 +125,18 @@ export default function HabitPage({ route }) {
       }).then(() => {
         Alert.alert("Sucesso na atualização do hábito");
         // Delete habit and notification together or just notification
-        if (!notificationToggle) {
+        if(!notificationToggle) {
           NotificationService.deleteNotification(habit?.habitName);
         } else {
           NotificationService.deleteNotification(habit?.habitName);
-          Notification.createNotification(
+          NotificationService.createNotification(
             habitInput,
             frequencyInput,
             dayNotification,
             timeNotification
           );
         }
+        
         navigation.navigate("Home", {
           updatedHabit: `Updated in ${habit?.habitArea}`,
         });
@@ -152,20 +155,30 @@ export default function HabitPage({ route }) {
 
   // If notification is disabled, it does not show notification on screen
   useEffect(() => {
-    if (notificationToggle === false) {
+    if (habit?.habitHasNotification == 1) {
+      setNotificationToggle(true);
+      setDayNotification(habit?.habitNotificationFrequency);
+      setTimeNotification(habit?.habitNotificationTime);
+    }
+  }, []);
+  
+  useEffect(() => {
+    if(notificationToggle === false) {
       setTimeNotification(null);
       setDayNotification(null);
     }
   }, [notificationToggle]);
-
+  
   // Notification Get Token
   useEffect(() => {
     notificationListener.current = Notifications.addNotificationReceivedListener((notification) => {
       setNotification(notification);
     });
+  
     responseListener.current = Notifications.addNotificationResponseReceivedListener((response) => {
       console.log(response);
     });
+  
     return () => {
       Notifications.removeNotificationSubscription(notificationListener.current);
       Notifications.removeNotificationSubscription(responseListener.current);
