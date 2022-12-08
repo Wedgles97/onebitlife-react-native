@@ -32,7 +32,103 @@ const removeCheckHabit = (obj) => {
   });
 };
 
+const removeCheck = (mindHabit, moneyHabit, bodyHabit, funHabit) => {
+	const date = new Date();
+  
+  // habit of mind
+	const mindLastCheck =
+    date.getDate() - (new Date(mindHabit?.lastCheck).getDate() + 1);
+  // Checking frequency (Diário, Semanal e Mensal)
+  if(mindHabit?.habitFrequency === "Diário" && mindLastCheck > 0) {
+    removeCheckHabit({
+      habitIsChecked: 0,
+      habitArea: mindHabit?.habitArea,
+    });
+  }
+  if(mindHabit?.habitFrequency === "Semanal" && mindLastCheck > 7) {
+    removeCheckHabit({
+      habitIsChecked: 0,
+      habitArea: mindHabit?.habitArea,
+    });
+  }
+  if(mindHabit?.habitFrequency === "Mensal" && mindLastCheck > 30) {
+    removeCheckHabit({
+      habitIsChecked: 0,
+      habitArea: mindHabit?.habitArea,
+    });
+  }
+  // habit of money
+  const moneyLastCheck =
+  date.getDate() - (new Date(moneyHabit?.lastCheck).getDate() + 1);
+  // Checking frequency (Diário, Semanal e Mensal)
+  if (moneyHabit?.habitFrequency === "Diário" && moneyLastCheck > 0) {
+    removeCheckHabit({
+      habitIsChecked: 0,
+      habitArea: moneyHabit?.habitArea,
+    });
+  }
+  if (moneyHabit?.habitFrequency === "Semanal" && moneyLastCheck > 7) {
+    removeCheckHabit({
+      habitIsChecked: 0,
+      habitArea: moneyHabit?.habitArea,
+    });
+  }
+  if (moneyHabit?.habitFrequency === "Mensal" && moneyLastCheck > 30) {
+    removeCheckHabit({
+      habitIsChecked: 0,
+      habitArea: moneyHabit?.habitArea,
+    });
+  }
+
+  // Habit of body
+  const BodyLastCheck =
+  date.getDate() - (new Date(bodyHabit?.lastCheck).getDate() + 1);
+  // Checking frequency (Diário, Semanal e Mensal)
+  if (bodyHabit?.habitFrequency === "Diário" && BodyLastCheck > 0) {
+    removeCheckHabit({
+      habitIsChecked: 0,
+      habitArea: bodyHabit?.habitArea,
+    });
+  }
+  if (bodyHabit?.habitFrequency === "Semanal" && BodyLastCheck > 7) {
+    removeCheckHabit({
+      habitIsChecked: 0,
+      habitArea: bodyHabit?.habitArea,
+    });
+  }
+  if (bodyHabit?.habitFrequency === "Mensal" && BodyLastCheck > 30) {
+    removeCheckHabit({
+      habitIsChecked: 0,
+      habitArea: bodyHabit?.habitArea,
+    });
+  }
+
+  // Habit of fun
+  const FunLastCheck =
+  date.getDate() - (new Date(funHabit?.lastCheck).getDate() + 1);
+  // Checking frequency (Diário, Semanal e Mensal)
+  if (funHabit?.habitFrequency === "Diário" && FunLastCheck > 0) {
+    removeCheckHabit({
+      habitIsChecked: 0,
+      habitArea: funHabit?.habitArea,
+    });
+  }
+  if (funHabit?.habitFrequency === "Semanal" && FunLastCheck > 7) {
+    removeCheckHabit({
+      habitIsChecked: 0,
+      habitArea: funHabit?.habitArea,
+    });
+  }
+  if (funHabit?.habitFrequency === "Mensal" && FunLastCheck > 30) {
+    removeCheckHabit({
+      habitIsChecked: 0,
+      habitArea: funHabit?.habitArea,
+    });
+  }
+}
+
 export default {
   checkHabit,
-  removeCheckHabit
+  removeCheckHabit,
+  removeCheck
 };
