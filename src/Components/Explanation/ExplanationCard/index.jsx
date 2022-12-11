@@ -1,16 +1,17 @@
-import React from 'react';
+import React from "react";
 import {
   Image,
   StyleSheet,
   Text,
   View
-} from 'react-native';
+} from "react-native";
 
 export default function ExplanationCard() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>
-        Através deste APP você vai consolidar {"\n"} 4 (quatro) hábitos de áreas fundamentais:
+        Através deste APP você vai consolidar {"\n"} 4 hábitos de áreas
+        fundamentais:
       </Text>
       <View style={styles.explanationContainer}>
         <Image
@@ -51,7 +52,7 @@ export default function ExplanationCard() {
           source={require("../../../assets/icons/funIcon.png")}
         />
         <Text style={styles.description}>
-          <Text style={styles.humor}>Humor: </Text> 
+          <Text style={styles.fun}>Humor: </Text> 
           Hábitos para controlar o stress {"\n"}e aumentar felicidade
         </Text>
       </View>
@@ -93,7 +94,7 @@ const styles = StyleSheet.create({
     color: "#FF0044",
     fontWeight: "bold",
   },
-  humor: {
+  fun: {
     color: "#FE7F23",
     fontWeight: "bold",
   },

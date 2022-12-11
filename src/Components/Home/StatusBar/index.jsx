@@ -22,11 +22,10 @@ export default function StatusBar({
         />
         <ProgressBar 
           style={styles.progress}
-          progress={mindHabit}
           color={"#90b7f3"}
+          progress={mindHabit}
         />
       </View>
-
       <View style={styles.statusBarContainer}>
         <Image
           style={styles.icon}
@@ -38,7 +37,6 @@ export default function StatusBar({
           color={"#85bb65"}
         />
       </View>
-
       <View style={styles.statusBarContainer}>
         <Image
           style={styles.icon}
@@ -46,7 +44,8 @@ export default function StatusBar({
         />
         <ProgressBar
           style={styles.progress}
-          progress={bodyHabit} color={"#ff0043"}
+          progress={bodyHabit} 
+          color={"#ff0043"}
         />
       </View>
 
@@ -57,14 +56,15 @@ export default function StatusBar({
         />
         <ProgressBar
           style={styles.progress}
-          progress={funHabit} color={"#fe7f23"}
+          progress={funHabit} 
+          color={"#fe7f23"}
         />
       </View>
     </View>
   );
 }
 
-const styles = StyleSheet.create ({
+const styles = StyleSheet.create({
   container: {
     padding: 20,
     backgroundColor: "#151515",

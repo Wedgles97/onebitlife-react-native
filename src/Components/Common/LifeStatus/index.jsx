@@ -4,8 +4,7 @@ import {
   StyleSheet 
 } from "react-native";
 import Lottie from "lottie-react-native";
-
-import AnimationService from "../../../Services/AnimationService"
+import AnimationService from "../../../Services/AnimationService";
 
 export default function LifeStatus({ mindHabit, moneyHabit, bodyHabit, funHabit }) {
 

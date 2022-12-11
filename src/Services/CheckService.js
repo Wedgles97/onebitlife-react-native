@@ -39,7 +39,7 @@ const removeCheck = (mindHabit, moneyHabit, bodyHabit, funHabit) => {
   // habit of mind
 	const mindLastCheck =
     date.getDate() - (new Date(mindHabit?.lastCheck).getDate() + 1);
-  // Checking frequency (Diário, Semanal e Mensal)
+  // Checking frequency
   if(mindHabit?.habitFrequency === "Diário" && mindLastCheck > 0) {
     removeCheckHabit({
       habitIsChecked: 0,
@@ -61,7 +61,7 @@ const removeCheck = (mindHabit, moneyHabit, bodyHabit, funHabit) => {
   // habit of money
   const moneyLastCheck =
   date.getDate() - (new Date(moneyHabit?.lastCheck).getDate() + 1);
-  // Checking frequency (Diário, Semanal e Mensal)
+  // Checking frequency
   if(moneyHabit?.habitFrequency === "Diário" && moneyLastCheck > 0) {
     removeCheckHabit({
       habitIsChecked: 0,
@@ -80,11 +80,10 @@ const removeCheck = (mindHabit, moneyHabit, bodyHabit, funHabit) => {
       habitArea: moneyHabit?.habitArea,
     });
   }
-
   // Habit of body
   const BodyLastCheck =
   date.getDate() - (new Date(bodyHabit?.lastCheck).getDate() + 1);
-  // Checking frequency (Diário, Semanal e Mensal)
+  // Checking frequency
   if(bodyHabit?.habitFrequency === "Diário" && BodyLastCheck > 0) {
     removeCheckHabit({
       habitIsChecked: 0,
@@ -103,11 +102,10 @@ const removeCheck = (mindHabit, moneyHabit, bodyHabit, funHabit) => {
       habitArea: bodyHabit?.habitArea,
     });
   }
-
   // Habit of fun
   const FunLastCheck =
   date.getDate() - (new Date(funHabit?.lastCheck).getDate() + 1);
-  // Checking frequency (Diário, Semanal e Mensal)
+  // Checking frequency
   if(funHabit?.habitFrequency === "Diário" && FunLastCheck > 0) {
     removeCheckHabit({
       habitIsChecked: 0,
@@ -130,7 +128,9 @@ const removeCheck = (mindHabit, moneyHabit, bodyHabit, funHabit) => {
 
 const checkStatus = (mindHabit, moneyHabit, bodyHabit, funHabit) => {
   const date = new Date();
+
   const mindLastCheck = date - new Date(mindHabit?.lastCheck);
+
   const mindDiff = parseInt(mindLastCheck / (1000 * 3600 * 24));
 
 	// Mind check
@@ -190,6 +190,7 @@ const checkStatus = (mindHabit, moneyHabit, bodyHabit, funHabit) => {
   }
   // Money Check
   const moneyLastCheck = date - new Date(moneyHabit?.lastCheck);
+
   const moneyDiff = parseInt(moneyLastCheck / (1000 * 3600 * 24));
 
   if(moneyHabit?.habitFrequency === "Diário") {
@@ -246,11 +247,9 @@ const checkStatus = (mindHabit, moneyHabit, bodyHabit, funHabit) => {
       });
     }
   }
-
   // Body check
   const bodyLastCheck = date - new Date(bodyHabit?.lastCheck);
   const bodyDiff = parseInt(bodyLastCheck / (1000 * 3600 * 24));
-
   if(bodyHabit?.habitFrequency === "Diário") {
     if(bodyDiff === 1) {
       HabitsService.changeProgress({
@@ -287,6 +286,7 @@ const checkStatus = (mindHabit, moneyHabit, bodyHabit, funHabit) => {
       });
     }
   }
+
   if(bodyHabit?.habitFrequency === "Mensal") {
     if(bodyDiff === 31) {
       HabitsService.changeProgress({
@@ -305,11 +305,10 @@ const checkStatus = (mindHabit, moneyHabit, bodyHabit, funHabit) => {
       });
     }
   }
-
   // Fun check
   const funLastCheck = date - new Date(funHabit?.lastCheck);
-  const funDiff = parseInt(funLastCheck / (1000 * 3600 * 24));
 
+  const funDiff = parseInt(funLastCheck / (1000 * 3600 * 24));
   if(funHabit?.habitFrequency === "Diário") {
     if(funDiff === 1) {
       HabitsService.changeProgress({
@@ -370,5 +369,5 @@ export default {
   checkHabit,
   removeCheckHabit,
   removeCheck,
-  checkStatus
+  checkStatus,
 };

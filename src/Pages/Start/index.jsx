@@ -20,8 +20,8 @@ export default function Start() {
 
   return (
     <View style={styles.container}>
-      <ScrollView showVerticalScrollIndicator={false}>
-        <View style={{alignItems: "center"}}>
+      <ScrollView style={styles.scroll} showVerticalScrollIndicator={false}>
+        <View style={{ alignItems: "center" }}>
           <Image 
             style={styles.logo} 
             source={require("../../assets/icons/logo3.png")} 
@@ -38,7 +38,6 @@ export default function Start() {
           />
         </View>
       </ScrollView>
-
     </View>
   );
 }

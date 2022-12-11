@@ -9,7 +9,7 @@ import {
 export default function Notification({ notificationToggle, setNotificationToggle }) {
   const toggleSwitch = () => {
     setNotificationToggle((previousState) => !previousState);
-  }
+  };
   return (
     <>
       <View style={styles.container}>

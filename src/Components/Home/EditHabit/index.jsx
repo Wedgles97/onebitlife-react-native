@@ -8,18 +8,16 @@ import {
 } from "react-native";
 
 import { useNavigation } from "@react-navigation/native";
-
 import CheckService from "../../../Services/CheckService";
 
 export default function EditHabit({ habit, frequency, habitArea, checkColor }) {
-  
   const navigation = useNavigation();
   const [habitCheck, setHabitCheck] = useState();
-  const [checkImage, setCheckImage] = useState(require("../../../assets/icons/Mind.png"));
-
+  const [checkImage, setCheckImage] = useState(
+    require("../../../assets/icons/Mind.png")
+    );
   const checkData = new Date();
   const formatDate = `${checkData.getFullYear()}-${checkData.getMonth()}-${checkData.getDate()}`;
-
 
   function handleEdit() {
     navigation.navigate("HabitPage", {
@@ -68,7 +66,6 @@ export default function EditHabit({ habit, frequency, habitArea, checkColor }) {
         <Text style={styles.habitTitle}>{habit?.habitName}</Text>
         <Text style={styles.habitFrequency}>{textNotification}</Text>
       </View>
-
       {habitCheck === 0 ? (
       <TouchableOpacity
         style={[styles.check, { borderColor: checkColor }]}

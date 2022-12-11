@@ -21,7 +21,7 @@ export default function AppExplanation() {
 
   function handleNavHome() {
     navigation.navigate("Home");
-  };
+  }
 
   function handleSetShowHome() {
     if(showHome !== "true") {
@@ -31,13 +31,12 @@ export default function AppExplanation() {
       setShowHome("true");
       handleNavHome();
     }
-    handleNavHome();
   }
 
   return (
     <View style={styles.container}>
       <ScrollView>
-        <View style={{alignItems: "center"}}>
+        <View style={{ alignItems: "center" }}>
           <Text style={styles.title}>
             Antes, deixa {"\n"} eu te explicar...
           </Text>
@@ -46,7 +45,8 @@ export default function AppExplanation() {
             Pronto(a) para subir de nível na vida?
           </Text>
           <Text style={styles.description}>
-            Na próxima tela você vai poder escolher {"\n"} seus 4 (quatro) hábitos de forma individual
+            Na próxima tela você vai poder escolher {"\n"} seus 4 hábitos de
+            forma individual.
           </Text>
           <DefaultButton 
             buttonText={"Continuar"}

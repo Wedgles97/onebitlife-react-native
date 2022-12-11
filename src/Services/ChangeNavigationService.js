@@ -43,7 +43,7 @@ const checkShowHome = (id) => {
       );
     });
   });
-}
+};
 
 export default {
   setShowHome,

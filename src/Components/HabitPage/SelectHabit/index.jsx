@@ -3,12 +3,13 @@ import {
   Image,
   StyleSheet
 } from "react-native";
-
 import { SelectList } from "react-native-dropdown-select-list";
 import HabitsData from "../../../Database/HabitsData";
 
 export default function SelectHabit({ habit, habitInput }) {
-  const [selected, setSelected] = useState(habit?.habitName ? habit?.habitName : "-");
+  const [selected, setSelected] = useState(
+    habit?.habitName ? habit?.habitName : "-"
+  );
   const [data, setData] = useState();
 
 	useEffect(() => {

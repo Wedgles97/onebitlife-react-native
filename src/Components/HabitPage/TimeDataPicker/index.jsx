@@ -1,16 +1,15 @@
-import React, { useEffect, useState } from "react";
-import {
-  Image,
-  Platform,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View
-} from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import React, { useState } from "react";
+import {
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  Text,
+  Image
+} from "react-native";
 import { SelectList } from "react-native-dropdown-select-list";
 
-export default function TimeDatePicker({
+export default function TimeDataPicker({
   frequency,
   dayNotification,
   timeNotification,
@@ -21,26 +20,21 @@ export default function TimeDatePicker({
   const [mode, setMode] = useState("date");
   const [show, setShow] = useState(false);
   const [selected, setSelected] = useState("-");
-
   const [notificationDate, setNotificationDate] = useState();
   const [notificationTime, setNotificationTime] = useState();
 
-  const onChange = (_, selectedDate) => {
-    const currentDate = selectedDate || date;
+  const onChange = (_, selectDate) => {
+    const currentDate = selectDate || date;
     setShow(Platform.OS === "ios");
     setDate(currentDate);
-
     let tempDate = new Date(currentDate);
-
     const notificationHour = tempDate.getHours().toString().padStart(2, "0");
     const notificationMin = tempDate.getMinutes().toString().padStart(2, "0");
-
     let dateNotification;
 
     if (frequency === "Semanal") {
       dateNotification = selected;
     }
-
     const timeNotification = `${notificationHour}:${notificationMin}`;
 
     setNotificationDate(dateNotification);
@@ -53,18 +47,10 @@ export default function TimeDatePicker({
     }
     setTimeNotification(timeNotification);
   };
-
   const showMode = (currentMode) => {
     setShow(true);
     setMode(currentMode);
   };
-
-  useEffect(() => {
-    if(dayNotification && timeNotification) {
-      setNotificationDate(dayNotification);
-      setNotificationTime(timeNotification);
-    }
-  }, []);
 
   const data = [
     { key: "Domingo", value: "Dom" },
@@ -78,49 +64,46 @@ export default function TimeDatePicker({
 
   return (
     <View>
-      {frequency === "Semanal" ? (
-        <SelectList
-          data={data}
-          search={false}
-          setSelected={setSelected}
-          onSelect={() => {
-            onChange();
-          }}
-          placeholder={selected}
-          boxStyles={styles.boxStyle}
-          inputStyles={styles.inputStyle}
-          dropdownStyles={styles.dropdownStyle}
-          dropdownItemStyles={styles.dropdownItemStyle}
-          dropdownTextStyles={styles.dropdownTextStyle}
-          arrowicon={
-            <Image
-              style={styles.arrow}
-              source={require("../../../assets/icons/arrowDropdown.png")}
-            />
-          }
-        />
-      ) : null }
-
-	    <TouchableOpacity style={styles.button} onPress={() => showMode("time")}>
+      <TouchableOpacity style={styles.button} onPress={() => showMode("time")}>
         <Text style={styles.buttonText}>Selecione a hora</Text>
       </TouchableOpacity>
 
 			<View style={styles.textContainer}>
         {frequency === "Diário" ? (
           <Text style={styles.notificationText}>Dia do hábito: Diário</Text>
-        ) : null }
+        ) : null}
+        {frequency === "Semanal" ? (
+          <SelectList
+            data={data}
+            search={false}
+            setSelected={setSelected}
+            onSelect={() => {
+              onChange();
+            }}
+            placeholder={selected}
+            boxStyles={styles.boxStyle}
+            inputStyles={styles.inputStyle}
+            dropdownStyles={styles.dropdownStyle}
+            dropdownItemStyles={styles.dropdownItemStyle}
+            dropdownTextStyles={styles.dropdownTextStyle}
+            arrowicon={
+              <Image
+                style={styles.arrow}
+                source={require("../../../assets/icons/arrowDropdown.png")}
+              />
+            }
+          />
+        ) : null}
 
         {frequency === "Semanal" ? (
           <Text style={styles.notificationText}>
             Dia do hábito: {notificationDate}
           </Text>
-        ) : null }
-
+        ) : null}
         <Text style={styles.notificationText}>
           Horário do hábito: {notificationTime}
         </Text>
       </View>
-
       {show && (
         <DateTimePicker
           testID="DateTimePicker"

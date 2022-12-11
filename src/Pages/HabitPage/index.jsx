@@ -10,16 +10,15 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import * as Notifications from "expo-notifications";
+import NotificationService from "../../Services/NotificationService";
 
 import SelectHabit from "../../Components/HabitPage/SelectHabit";
 import SelectFrequency from "../../Components/HabitPage/SelectFrequency";
 import Notification from "../../Components/HabitPage/Notification";
-import TimeDatePicker from "../../Components/HabitPage/TimeDatePicker";
+import TimeDatePicker from "../../Components/HabitPage/TimeDataPicker";
 import UpdateExcludeButtons from "../../Components/HabitPage/UpdateExcludeButtons";
 import DefaultButton from "../../Components/Common/DefaultButton";
 import HabitsService from "../../Services/HabitsService";
-import NotificationService from "../../Services/NotificationService";
-
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -49,21 +48,14 @@ export default function HabitPage({ route }) {
   const responseListener = useRef();
 
   function handleCreateHabit() {
-    if(
-      habitInput === undefined ||
-      frequencyInput === undefined
-    ) {
-      Alert.alert(
-        "Você precisa selecionar um hábito e frequência para continuar"
-      );
+    if(habitInput === undefined || frequencyInput === undefined) {
+      Alert.alert("Você precisa selecionar um hábito e frequência para continuar");
     } else if(
       notificationToggle === true &&
       frequencyInput === "Diário" &&
       timeNotification === undefined
     ) {
-      Alert.alert(
-        "Você precisa dizer o horário da notificação!"
-      );
+      Alert.alert("Você precisa dizer o horário da notificação!");
     } else if(
       notificationToggle === true &&
       frequencyInput === "Diário" &&
@@ -82,6 +74,7 @@ export default function HabitPage({ route }) {
           timeNotification
         );
       }
+
       HabitsService.createHabit({
         habitArea: habit?.habitArea,
         habitName: habitInput,
@@ -96,6 +89,7 @@ export default function HabitPage({ route }) {
         habitChecks: 0,
       }).then(() => {
         Alert.alert("Sucesso na criação do hábito!");
+
         navigation.navigate("Home", {
           createdHabit: `Created in ${habit?.habitArea}`,
         });
@@ -104,14 +98,8 @@ export default function HabitPage({ route }) {
   }
 
   function handleUpdateHabit() {
-    if (
-      notificationToggle === true &&
-      !dayNotification && 
-      !timeNotification
-    ) {
-      Alert.alert(
-        "Você precisa colocar a frequência e horário da notificação!"
-      );
+    if(notificationToggle === true && !dayNotification && !timeNotification) {
+      Alert.alert("Você precisa colocar a frequência e horário da notificação");
     } else {
       HabitsService.updateHabit({
         habitArea: habit?.habitArea,
@@ -142,7 +130,6 @@ export default function HabitPage({ route }) {
       });
     }
   }
-
   // Check if you have active notification
   useEffect(() => {
     if (habit?.habitHasNotification == 1) {
@@ -152,15 +139,7 @@ export default function HabitPage({ route }) {
     }
   }, []);
 
-  // If notification is disabled, it does not show notification on screen
-  useEffect(() => {
-    if (habit?.habitHasNotification == 1) {
-      setNotificationToggle(true);
-      setDayNotification(habit?.habitNotificationFrequency);
-      setTimeNotification(habit?.habitNotificationTime);
-    }
-  }, []);
-  
+  // If notification is disabled, it does not show notification on screen 
   useEffect(() => {
     if(notificationToggle === false) {
       setTimeNotification(null);
@@ -170,16 +149,20 @@ export default function HabitPage({ route }) {
   
   // Notification Get Token
   useEffect(() => {
-    notificationListener.current = Notifications.addNotificationReceivedListener((notification) => {
-      setNotification(notification);
-    });
+    notificationListener.current =
+      Notifications.addNotificationReceivedListener((notification) => {
+        setNotification(notification);
+      });
   
-    responseListener.current = Notifications.addNotificationResponseReceivedListener((response) => {
-      console.log(response);
-    });
+    responseListener.current =
+      Notifications.addNotificationResponseReceivedListener((response) => {
+        console.log(response);
+      });
   
     return () => {
-      Notifications.removeNotificationSubscription(notificationListener.current);
+      Notifications.removeNotificationSubscription(
+        notificationListener.current
+      );
       Notifications.removeNotificationSubscription(responseListener.current);
     };
   }, []);
@@ -228,7 +211,7 @@ export default function HabitPage({ route }) {
                   setTimeNotification={setTimeNotification}
                 />
               )
-            ) : null }
+            ) : null}
 
             {create === false ? (
               <UpdateExcludeButtons 

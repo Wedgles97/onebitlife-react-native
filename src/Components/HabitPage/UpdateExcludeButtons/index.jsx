@@ -9,22 +9,14 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import HabitsService from "../../../Services/HabitsService";
-import NotificationService from "../../../Services/NotificationService";
 
-
-export default function UpdateExcludeButtons ({
-  habitInput,
-  handleUpdate,
-  habitArea
-}) {
-
+export default function UpdateExcludeButtons ({ habitInput, handleUpdate, habitArea }) {
   const navigation = useNavigation();
 
   function handleDeleteHabit() {
     HabitsService.deleteByName(habitArea)
     .then(() => {
       Alert.alert("Exclusão feita com sucesso");
-      NotificationService.deleteNotification(habitInput);
       navigation.navigate("Home", {
         excludeArea: `${habitArea}`,
       });
@@ -40,7 +32,7 @@ export default function UpdateExcludeButtons ({
         onPress={() => {
           Alert.alert(
             "Ao prosseguir você vai atualizar o hábito, tem certeza?",
-            "Ao fazer isso você pode mudar o hábvito, frequência e notificação.",
+            "Ao fazer isso você pode mudar o hábito, frequência e notificação.",
             [
               {
                 text: "Cancelar",
@@ -60,7 +52,7 @@ export default function UpdateExcludeButtons ({
         activeOpacity={0.8}
         onPress={() => {
           Alert.alert(
-            "Você tem certeza que quer excluir o hábito?",
+            `Você tem certeza que quer excluir o hábito?`,
             "Ao fazer isso perderá todo o progresso ou falha do hábito.",
             [
               {
@@ -86,7 +78,7 @@ export default function UpdateExcludeButtons ({
   );
 }
 
-const styles = StyleSheet.create ({
+const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     marginBottom: 20,
